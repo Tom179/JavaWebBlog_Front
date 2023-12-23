@@ -85,8 +85,11 @@ export default{
 <style scoped>
 .container{
  height:100%;
- background-color: rgb(19, 19, 16);
- 
+ /* background-color: rgb(19, 19, 16); */
+    background-image: url('../assets/1102604.jpg');
+    background-size: cover; 
+    background-position: center; 
+
 }
 .registBox{
     width: 450px;

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="listContainer">
     <h2>用户列表</h2>
     <a-card>
         <a-row :gutter="20"><!--gutter属性：列间隔-->
@@ -10,13 +10,12 @@
                 allowClear 
                 @search="getUserList"/>
             </a-col>
-            <a-col :span="4"><a-button type="primary" @click="addUserVisible=true">新增</a-button></a-col>
+            <a-col :span="4"><a-button type="primary" v-show="userRole === 1" @click="addUserVisible=true">新增</a-button></a-col>
         </a-row>
         <a-table rowKey="ID" :columns="columns" :pagination="paginationOption" :dataSource="userlist"><!--这个userList是从data(){}中获取，也就是后端返回的响应-->
         <span slot="role" slot-scope="role">{{ role==1?'管理员':'订阅者'}}</span>
         <template slot="action" slot-scope="data"><!--slot-scope在插槽中传递数据,每一行都传入自己的id-->
             <div class="actionSlot">
-            <!-- <a-button type="primary">修改</a-button> -->
             <a-button type="danger" v-show="userRole === 1" @click="deleteUser(data.ID)">删除</a-button>
         </div>
         </template>
@@ -233,3 +232,5 @@ methods:{
 
 }
 </script>
+<style>
+</style>

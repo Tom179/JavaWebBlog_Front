@@ -1,7 +1,7 @@
 <template>
     <div>
     <h2>文章</h2>
-    <a-card>
+    <a-card class="listContainer">
         <a-row :gutter="20"><!--gutter属性：列间隔-->
             <a-col :span="6"> 
                 <a-input-search v-model="queryParam.title" placeholder="输入文章名查找" enter-button allowClear @search="getArtList"/>
@@ -163,5 +163,10 @@ methods:{
     height:200px;
 
 }
+/* .listContainer{
+    background-image: url('../../assets/1102604.jpg');
+    background-size: cover;
+    background-position: center; 
+} */
 
 </style>

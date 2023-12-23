@@ -45,7 +45,7 @@ router.beforeEach((to,from,next)=>{
   const token=window.sessionStorage.getItem('token')
   console.log(token);
   if(to.path=='/login') return next()
-  if(!token&&to.path=='/admin'){
+  if(!token&&to.path!='/regist'){//如果当前没有token，并且要访问除注册之外的页面
     next('login')
   }else {
     next()

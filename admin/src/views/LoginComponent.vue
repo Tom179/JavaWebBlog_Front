@@ -54,7 +54,7 @@ export default{
               if(res.status !== 200) return this.$message.error(res.message)//res：获取到的后端数据
               window.sessionStorage.setItem('token',res.token)//存储到session
               window.sessionStorage.setItem('UserID',res.id)
-              this.$router.push('admin/artlist')
+              this.$router.push('admin/index')
             }) 
         },
         regist(){
@@ -68,7 +68,10 @@ export default{
 <style scoped>
 .container{
  height:100%;
- background-color: rgb(19, 19, 16);
+ /* background-color: rgb(19, 19, 16); */
+    background-image: url('../assets/1102604.jpg');
+    background-size: cover; 
+    background-position: center; 
  
 }
 .loginBox{

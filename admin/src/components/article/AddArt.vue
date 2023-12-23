@@ -4,7 +4,7 @@
             <h2>创作</h2>
             <a-form-model :model="artInfo">
             <a-form-model-item label="文章标题"></a-form-model-item>
-            <a-input style="width:300px" v-model="artInfo.title"></a-input>
+            <a-input style="width:300px" v-model="artInfo.title"></a-input> 
             <a-form-model-item label="文章描述"></a-form-model-item>
             <a-input type="textarea" style="width:900px" v-model="artInfo.description"></a-input>
             <a-form-model-item label="封面">
@@ -17,12 +17,13 @@
                     listType="picture"
                 >
                     <a-button> <a-icon type="upload" />点击上传 </a-button>
+          <br/>
                 </a-upload><!--listType=Picture：显示上传的图片-->
             </a-form-model-item>
              <a-form-model-item label="正文"></a-form-model-item>
-            <a-input  v-model="artInfo.content" type="textarea" style="width:1200px"></a-input>
+            <a-input  v-model="artInfo.content" type="textarea" style="width:1200px;height: 400px;"></a-input>
             <a-form-model-item >
-                <a-button type="primary" style="margin-right: 15px" @click="artOk(artInfo.id)">提交</a-button>
+                <a-button type="primary" style="margin-right: 15px" @click="artOk(artInfo.id)">{{artInfo.id?'更新':'提交'}}</a-button>
                 <a-button type="default" @click="addCancel">取消</a-button>
                  
             </a-form-model-item>
@@ -55,8 +56,11 @@ export default {
     console.log(UserID)
     this.artInfo.UserID = UserID
     console.log('发表文章的ID为'+this.artInfo.UserID)
-        if(this.id)
+    
+        if(this.id){
+            console.log('AddArt页面中，this.id为'+this.id)
         this.getArtInfo(this.id)
+        }
     },
     methods:{
         upChange(info) {

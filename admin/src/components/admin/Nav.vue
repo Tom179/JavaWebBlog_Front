@@ -30,7 +30,7 @@ export default {
     async getUserName(id){
         const {data:res} = await this.$http.get(`user/${id}`)
         this.username=res.data.username//注意这个data！！！！，接收的是什么？
-        console.log('返回响应为'+res.data.username)
+        // console.log('为'+res.data.username)
     },    
     gotoPage(item){
         this.$router.push('/admin/'+item.key).catch((err)=>err)//catch((err)=>err)消除访问同一个路由的报错
