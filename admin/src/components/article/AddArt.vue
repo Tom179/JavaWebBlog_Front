@@ -2,7 +2,7 @@
     <div>
         <a-card>
             <h2>创作</h2>
-            <a-form-model :model="artInfo">
+            <a-form-model :model="artInfo"  ref="artInfoRef">
             <a-form-model-item label="文章标题"></a-form-model-item>
             <a-input style="width:300px" v-model="artInfo.title"></a-input> 
             <a-form-model-item label="文章描述"></a-form-model-item>
@@ -38,11 +38,11 @@ export default {
     data(){
         return{
             artInfo:{
-                id:0,
+                id:0,//文章id
                 title: '',
                 description: '',
                 content: '',
-                UserID:'',
+                UserID:'',//作者id
                 img: '',
             },
             headers:{
@@ -55,11 +55,13 @@ export default {
     const UserID = sessionStorage.getItem('UserID');//获得用户的权限
     console.log(UserID)
     this.artInfo.UserID = UserID
-    console.log('发表文章的ID为'+this.artInfo.UserID)
-    
-        if(this.id){
-            console.log('AddArt页面中，this.id为'+this.id)
-        this.getArtInfo(this.id)
+    const modifyArticle=window.sessionStorage.getItem('modifyArticle')
+        if(modifyArticle){
+            console.log('sessionStroage中的值为'+modifyArticle)
+        this.artInfo.id=modifyArticle
+        this.getArtInfo(this.artInfo.id)
+        console.log('文章id:'+this.artInfo.id)
+        console.log('artInfo标题更新：'+this.artInfo.title)
         }
     },
     methods:{
@@ -79,22 +81,36 @@ export default {
          
         },
         async getArtInfo(id){
-            const {data:res}= await this.$http.get(`article/info/${id}`)
+           const {data:res}= await this.$http.get(`article/info/${id}`)
            if(res.status!=200) return this.$message.error(res.message)
-           this.artInfo=res.data
-          this.artInfo.id=res.data.ID
+          
+          this.artInfo.title=res.article.title
+          this.artInfo.description=res.article.description
+          this.artInfo.content=res.article.content
+          this.artInfo.UserID=res.article.created_by
+          this.artInfo.img=res.article.img
+          console.log(this.artInfo)
+           console.log("响应到的img为"+res.article.img)          
         },
-        async artOk(){
+        async artOk(id){
+          
+           if(id==0){
             try{
                 const {data:res}=await this.$http.post('article/add',this.artInfo)
                 console.log(res)
                 if(res.status!=200) return this.$message.error(res.message)
-                this.$message.success(res.message)
                 this.$router.push('/admin/artlist')
+                this.$message.success(res.message)
              }catch(error){
                 console.error(error)
              }
-            
+           }else{
+                const {data:res}=await this.$http.put(`Art/${id}`,this.artInfo)
+                if(res.status!=200) return this.$message.error(res.message)
+                
+                this.$router.push('/admin/artlist')
+                this.$message.success(res.message)
+           }
           
         },
         addCancel(){

@@ -18,7 +18,7 @@
                     <template slot="action" slot-scope="data"><!--slot-scope在插槽中传递数据,每一行如何找到自己的id的？这个template为什么被绑定到一列上？-->
                         <div class="actionSlot">
                         <a-button type="default"  @click="showArticle(data.ID)">查看</a-button>
-                         <!-- <a-button type="primary">修改</a-button> -->
+                         <a-button type="primary" @click="editArticle(data.ID)">编辑</a-button>
                         <a-button type="danger" @click="deleteArt(data.ID)" >删除</a-button>
                         </div>
                     </template>
@@ -148,6 +148,10 @@ methods:{
        console.log('点击'+id);
        this.$router.push(`Art/${id}`)
     },
+    editArticle(id){
+        window.sessionStorage.setItem('modifyArticle',id)//存储到session
+        this.$router.push(`addart`)
+    }
   
 
     
